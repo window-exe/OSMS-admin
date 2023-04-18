@@ -1,17 +1,25 @@
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+const Home = ()=>{
+    const login = useSelector((state)=> state.login.login)
 
-
-
-const Home =()=>{
-
+    if(login)
+    {
     return (
         <>
         
-        <p>
-            THis is home page
-        </p>
-        
+ 
+home
+ 
+
+
         </>
     )
+    }
+    else{
+        return <Navigate to="/login" />
+    }
 }
+
 
 export default Home;

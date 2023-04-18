@@ -1,5 +1,5 @@
 import { Button, Form, Input, Spin, Alert } from 'antd';
-import { LoginWrapper, RegisterWrapper, } from '../Login/style'
+import { LoginWrapper, RegisterWrapper} from '../Login/style'
 import React, { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -73,9 +73,11 @@ const Register = () => {
 
 
     return (
+
         <LoginWrapper style={{ width: "100vw", height: "100%" }}>
-            <div style={{ width: "100%", display: "flex", justifyContent: "center", marginBottom: "100px", alignItems: "center" }}>
-                <div style={{ width: "380px", background: "white", padding: "0 40px", paddingTop: "40px", marginTop: "200px", boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)" }}>
+    
+            <div style={{ width: "100%",height:"100vh", display: "flex", justifyContent: "center", marginBottom: "100px", alignItems: "center" }}>
+                <div style={{ width: "380px", background: "white", padding: "0 40px", paddingTop: "40px", boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)" }}>
 
                     <Alert
                         message={error}
@@ -162,7 +164,7 @@ const Register = () => {
                                         Register
                                     </Button>
                                     <div style={{ marginTop: "10px" }}>
-                                        <Link to="/login" style={{ color: "#FA7070" }} >Already a member?</Link>
+                                        <Link to="/login" style={{ color: "#274C77" }} >Already a member?</Link>
 
                                     </div>
                                 </Form.Item>

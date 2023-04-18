@@ -1,64 +1,46 @@
 import { Button,  Form, Input, Spin,Alert } from 'antd';
 import { LoginWrapper, SigninWrapper } from './style'
 import { useState } from 'react';
-import { Link,Navigate,useNavigate  } from 'react-router-dom';
+import { Link,Navigate,useNavigate ,redirect } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import * as actionCreators from './store/actionCreators'
 import axios from 'axios'
-import store from '../../store/homeReducer'
 
 axios.defaults.withCredentials = true;
 
 const Login = () => {
-    const navigate =useNavigate()
 
+
+    const navigate =useNavigate()
     
     const log =useSelector((state)=>state.login.login)
 
     const dispatch=useDispatch();
 
- 
-
-    // const clientId = "362834148816-7fgha21udrng9ljd4toj717lggh7oeb4.apps.googleusercontent.com"
     const [message,setMessage] =useState("");
     const [show,setShow] =useState(false)
 
-    // useEffect(() => {
-    //     const initClient = () => {
-    //         gapi.client.init({
-    //             clientId: clientId,
-    //             scope: ''
-    //         });
-    //     };
-    //     gapi.load('client:auth2', initClient);
-    // });
+
 
     const [loading, setLoad] = useState(false)
  
 
-    // const onChange = (e:any) => {
-    //     console.log(`checked = ${e.target.checked}`);
-    //   };
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         setLoad(true)
-        let Form = new FormData()
-
-        Form.append("Email",values.email)
-        Form.append("Password",values.password)
-
-        axios({
+     
+        await axios({
             method: "POST",
-            url:process.env.REACT_APP_APIURL+"/api/login",
-            data:Form,
+            url:process.env.REACT_APP_API+"/api/login",
+            data:values,
             withCredentials:true
         }).then((res)=>{ 
             setLoad(false)
 
-            if(res.status=== 200){
-                dispatch(actionCreators.setLogin())
-                dispatch(actionCreators.setRole(res.data))
-                navigate("/product")
+            if(res.status === 200){
+             
+                dispatch(actionCreators.setLogin())   
+                return redirect("/")
             }
 
         }).catch((err)=>{
@@ -72,7 +54,7 @@ const Login = () => {
     }
 if(!log){
     return (
-        <LoginWrapper style={{ width: "100vw", height: "100%" }}>
+        <LoginWrapper style={{ width: "100vw", height: "100%", background:"#274C77"}}>
             <div style={{ width: "100%", display: "flex", justifyContent: "center", marginBottom: "100px" }}>
                 <div style={{ width: "380px", background: "white", padding: "40px", marginTop: "200px", boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)" }}>
 
@@ -94,7 +76,7 @@ if(!log){
 
                             
                                 <Form.Item
-                                    name="email"
+                                    name="Email"
                                     rules={[{ required: true, message: 'Please input your Email!' }]}
                                 >
                                     <Input placeholder="Email"
@@ -103,7 +85,7 @@ if(!log){
                                 </Form.Item>
                                 <Form.Item
                                
-                                    name="password"
+                                    name="Password"
                                     rules={[{ required: true, message: 'Please input your Password!' }]}
                                 >
                                     <Input.Password
@@ -135,7 +117,7 @@ if(!log){
                                         />
                                     </div> */}
                                     <div style={{ marginTop: "10px" }}>
-                                        <Link to="/register" style={{ color: "#FA7070" }}>New here?</Link>
+                                        <Link to="/register" style={{ color: "#274C77" }}>New here?</Link>
                                         {/* <a href="" style={{ float: "right", color: "#FA7070" }}>Forgot Password</a> */}
                                     </div>
                                 </Form.Item>
